@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phani Avinash — Video Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+    
+  </script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #111827;
+    }
+    .light-glass {
+  position: relative;
+  background: #852f4320; /* Opaque white prevents shadow bleed-through */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  z-index: 1;
+}
+
+.light-glass:hover {
+  z-index: 20; /* Pulls the hovered card above all adjacent cards so its shadow is never sliced */
+  transform: translateY(-4px);
+  border-color: #0000002c;
+  box-shadow: 0 20px 35px -8px #8500201a, 0 8px 16px -4px #8500200a;
+}
+    
+    .nav-glass {
+      background: rgba(187, 187, 187, 0.34);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .radial-bg {
+      background: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.03) 0%, transparent 60%);
+    }
+
+    html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+.video-card video {
+  display: block;
+}
+
+.circle {
+  height: 16px;
+  width: 16px;
+  border-radius: 24px;
+  background-color: #850020;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999999; /* so that it stays on top of all other elements */
+}
+
+  </style>
+</head>
+<body class="selection:bg-neutral-900 selection:text-white antialiased">
+
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+
+  <div class="fixed top-0 left-0 w-full h-[400px] radial-bg pointer-events-none z-0"></div>
+  
+  <header class="fixed top-3 left-0 w-full z-50 px-4 sm:px-6 lg:px-8 pointer-events-none">
+  <nav class="nav-glass pointer-events-auto w-full max-w-[1400px] mx-auto px-6 sm:px-8 py-3 rounded-2xl flex items-center justify-between shadow-sm">
+    
+    <a href="#hero" class="flex items-center gap-7 group">
+      <img 
+        src="https://uploads.onecompiler.io/43ynmcf7d/1788454592528/avinash%20profile.png" 
+        alt="Phani Avinash" 
+        class="w-10 h-10 rounded-full object-cover border border-neutral-300 group-hover:scale-110 transition-transform"
+      />
+      <span class="text-xl sm:text-lg font-bold tracking-tight text-neutral-900 hover:opacity-80 transition-opacity">
+        Phani Avinash.U
+      </span>
+    </a>
+
+    <div class="flex items-center gap-10">
+      <a href="#work" class="text-xs sm:text-sm font-medium text-neutral-600 hover:text-neutral-950 transition-colors">
+        Work
+      </a>
+      <a href="#aboutme" class="text-xs sm:text-sm font-medium text-neutral-600 hover:text-neutral-950 transition-colors">
+        About Me
+      </a>
+      <a href="https://wa.me/916309005266" target="_blank" class="text-xs sm:text-sm bg-[#800020] text-white px-4 py-2 rounded-xl font-semibold hover:bg-neutral-800 active:scale-95 transition-all shadow-sm">
+        Let's Talk
+      </a>
+    </div>
+
+  </nav>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pt-20 md:pt-24 pb-20">
+    
+    <section id="hero" class="w-full flex flex-col lg:flex-row  justify-between gap-12 lg:gap-16 pt-6">
+
+  <div class="w-full lg:w-3/5 flex flex-col items-start text-left">
+    
+    <div class="inline-flex items-center gap-3 px-3.5 py-2 rounded-full border border-neutral-200 bg-white/70 text-xs font-medium text-neutral-600 mb-6 shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse"></span>
+      Available for freelance & creator projects
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.12]">
+      <span class="text-[#800020]">I turn Raw footage into Stories</span>
+      <span class="text-neutral-500"> People can’t stop Watching.</span>
+    </h1>
+
+    <p class="mt-6 text-base sm:text-lg text-neutral-600 max-w-xl font-normal leading-relaxed">
+      I edit high-impact short-form content for creators, influencers, and brands — from raw footage to polished Reels, Shorts, and social videos.
+    </p>
+
+    <div class="flex items-center gap-4 mt-8">
+      <a href="#work" class="px-6 py-3 rounded-xl bg-[#800020] text-white font-semibold text-sm hover:bg-[#66001a] active:scale-95 transition-all shadow-md">
+        Explore Selected Reels
+      </a>
+      <a href="#contact" class="light-glass px-6 py-3 rounded-xl text-neutral-800 font-semibold text-sm hover:text-neutral-950">
+        Get in Touch
+      </a>
+    </div>
+  </div>  
+
+  <div class="w-full sm:w-[280px] lg:w-[320px] items-start shrink-0">
+    <div class="light-glass rounded-3xl p-3 shadow-3xl relative group">
+      
+      <div class="absolute top-5 left-5 z-20 bg-neutral-900/80  text-white text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full border border-white/10">
+        Featured Reel
+      </div>
+
+      <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\Monthly Expense 4k.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+
+      <div class="pt-3 px-2 flex justify-between items-center">
+        <span class="text-xs font-semibold text-neutral-800">Viral Hook & Retention Edit</span>
+        <span class="text-[10px] text-neutral-400 font-mono font-semibold">9:16 HD</span>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+    <section id="work" class="mt-24">
+      <style>#work {
+  scroll-margin-top: 100px;
+}</style>
+
+      <div class="relative flex items-center justify-between mb-8">
+        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-500 to-transparent"></div>
+        <div class="mx-3 flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-neutral-200/80 bg-white/60 backdrop-blur-md shadow-sm">
+           <span class="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
+           <span class="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-500">Works</span>
+        </div>
+        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-500 to-transparent"></div>
+      </div>
+
+      <div class="flex items-end justify-between mb-8 border-b border-neutral-200/80 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-neutral-900">Work That Converts</h2>
+          <p class="text-xs text-neutral-500 mt-1">Frame-by-frame sound design, kinetic typography, and retention-first edits.</p>
+        </div>
+        <span class="text-xs text-neutral-400 font-mono font-medium">06 Works</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        
+
+        <div class="light-glass rounded-2xl p-3.5 group">
+           <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\Mr.Beast.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800"> Mr.Beast Podcast Edit</span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+
+        <div class="light-glass rounded-2xl p-3.5 group">
+                     <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\Chia Seeds_2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800">Health & Nutrition Edit</span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+
+        <div class="light-glass rounded-2xl p-3.5 group">
+                    <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\VK with Niharika_1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800">Raw Talks with VK Podcast Edit</span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+
+        <div class="light-glass rounded-2xl p-3.5 group">
+                     <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\Teju-1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800">Personal Brand Cinematic Edit</span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+
+        <div class="light-glass rounded-2xl p-3.5 group">
+                     <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\luke.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800">Luke Podcast Edit </span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+        
+        <div class="light-glass rounded-2xl p-3.5 group">
+                     <!-- Video Container -->
+<div class="video-card relative aspect-[9/16] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-inner">
+  <video 
+    class="portfolio-video w-full h-full object-cover" 
+    playsinline 
+    preload="auto">
+    <source src="C:\Users\ummid\OneDrive\Desktop\portfolio\videos\Teju-3.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Big Play Button Overlay (covers video until clicked) -->
+  <button 
+    type="button" 
+    aria-label="Play video"
+    class="play-trigger absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all z-20 cursor-pointer">
+    <span class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110 active:scale-95">
+      <svg class="w-8 h-8 fill-current translate-x-0.5" viewBox="0 0 27 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+  </button>
+</div>
+          <div class="pt-3 px-1 flex justify-between items-center">
+            <span class="text-xs font-semibold text-neutral-800">Cinematic Entrepreneur Edit</span>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-semibold">9:16 Vertical</span>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- About Me Section -->
+<section id="aboutme"  class="mt-24">
+  <style>#aboutme {
+  scroll-margin-top: 100px;
+}</style>
+
+  <div class="relative flex items-center justify-between mb-8">
+        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-500 to-transparent"></div>
+        <div class="mx-3 flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-neutral-200/80 bg-white/60 backdrop-blur-md shadow-sm">
+           <span class="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
+           <span class="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-500">About Me</span>
+        </div>
+        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-500 to-transparent"></div>
+      </div>
+  
+  <!-- Headline -->
+  <div class="mb-12">
+    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+      <span class="text-[#800020]">Editing stories</span><br />
+      <span class="text-neutral-700">that hook and convert.</span>
+    </h2>
+  </div>
+
+  <!-- Profile & Bio Split Layout -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+    
+    <!-- Left Column: Photo & Name Label -->
+    <div class="md:col-span-4 flex flex-col">
+      <div class="relative w-full aspect-square rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-md">
+        <!-- Profile Picture (replace 'profile.png' with your image file/URL) -->
+        <img 
+          src="https://uploads.onecompiler.io/43ynmcf7d/1788454592528/avinash%20profile.png" 
+          alt="Phani Avinash" 
+          class="w-full h-full object-cover"
+        />
+      </div>
+      
+      <!-- Identification Under Image -->
+      <div class="mt-4">
+        <h3 class="text-base font-bold text-neutral-900 tracking-tight">Phani Avinash.U</h3>
+        <p class="text-xs text-neutral-500 font-medium mt-0.5">Video Editor</p>
+      </div>
+    </div>
+
+    <!-- Right Column: Vertically Centered & Larger Bio Paragraph + Signature -->
+<div class="md:col-span-7 flex flex-col justify-between py-4">
+  
+  <div class="flex items-start gap-4">
+    <!-- Bullet Dot Indicator -->
+    <span class="w-3 h-3 rounded-full bg-neutral-900 mt-2.5 shrink-0"></span>
+    
+    <!-- Larger Bio Text -->
+    <p class="text-neutral-700 text-base sm:text-lg lg:text-xl leading-relaxed font-normal">
+      <strong class="text-neutral-900 font-semibold">I'm Phani Avinash, a short-form video editor</strong> dedicated to helping creators, influencers, and brands scale their reach. Over my editing journey, I’ve refined a workflow centered on high viewer retention—blending fast-paced cutting, custom sound design (SFX), clean motion typography, and seamless visual hooks. I care about getting the subtle pacing details right, because a viral reel isn't just about flashy effects; it's about holding attention every single second.      
+    </p>
+  </div>
+
+  <!-- Signature -->
+  <div class="mt-6 ml-7">
+  <img 
+    src="https://uploads.onecompiler.io/43ynmcf7d/1788674925184/signature.png" 
+    alt="Phani Avinash Signature" 
+    class="w-44 sm:w-60 h-auto  mix-blend-multiply opacity-100 select-none pointer-events-none origin-left"
+  />
+</div>
+
+</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+   <!-- High-End Studio Contact Section -->
+<section id="contact" class="mt-20 mb-20 scroll-mt-24">
+
+     <div class=" relative flex items-center justify-between mb-8">
+        <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-500 to-transparent"></div>
+      </div>
+
+  <div class="light-glass rounded-[2.5rem] border border-neutral-500/40 p-10 sm:p-16 lg:p-20 shadow-[0_25px_70px_-20px_rgba(0,0,0,0.06)] overflow-hidden text-center">
+
+    <!-- Ambient Maroon Radial Accent -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[#fffff]/[0.10]  blur-2xl pointer-events-none"></div>
+
+    <!-- Status Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-white/90 shadow-sm text-xs font-medium text-neutral-600 mb-8 backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      Available for creator retainers & freelance
+    </div>
+
+    <!-- Punchy Minimalist Statement -->
+    <h2 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-900 leading-[1.08] max-w-3xl mx-auto">
+      Let’s create reels that <br class="hidden sm:inline" />
+      <span class="text-[#800020] ">command attention.</span>
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="text-neutral-500 text-sm sm:text-base mt-6 max-w-lg mx-auto leading-relaxed">
+      Reach out directly for short-form video pacing, sound design, visual hooks, or long-term production partnerships.
+    </p>
+
+    <!-- Interactive Social & Contact Cards Grid -->
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto text-left">
+
+      <!-- WhatsApp Card -->
+      <a 
+        href="https://wa.me/916309005266" 
+        target="_blank"
+        class="group relative flex items-center gap-4 p-4 rounded-2xl bg-white border border-neutral-200/80 shadow-sm hover:border-[#800020]/40 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+      >
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-all text-emerald-600">
+          <!-- WhatsApp SVG -->
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19.53-1.11 1.04-1.53 1.07-.41.04-.89.06-2.88-.73-1.7-.67-2.8-2.4-2.88-2.52-.09-.11-.69-.92-.69-1.75 0-.83.43-1.24.59-1.41.15-.17.34-.21.45-.21.11 0 .23 0 .32.01.11.01.24-.04.38.29.15.34.5 1.23.55 1.32.05.09.08.2.02.32-.06.11-.09.19-.19.3-.09.11-.2.24-.29.32-.1.1-.21.21-.09.41.12.2.53.88 1.15 1.43.79.7 1.46.92 1.66 1.02.2.11.32.09.43-.04.12-.13.51-.59.65-.79.13-.2.28-.17.47-.1.19.07 1.21.57 1.42.67.21.11.35.16.4.25.06.09.06.52-.13 1.05Z"/>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">Quick Chat</p>
+          <p class="text-xs sm:text-sm font-bold text-neutral-800 truncate">+91 6309005266</p>
+        </div>
+        <!-- Arrow Icon -->
+        <span class="text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-sm font-bold">↗</span>
+      </a>
+
+      <!-- Email Card -->
+      <a 
+        href="mailto:ummidiavinash05@gmail.com" 
+        class="group relative flex items-center gap-4 p-4 rounded-2xl bg-white border border-neutral-200/80 shadow-sm hover:border-[#800020]/40 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+      >
+        <div class="w-11 h-11 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0 group-hover:bg-[#800020] group-hover:text-white transition-all text-[#800020]">
+          <!-- Mail SVG -->
+          <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">Direct Email</p>
+          <p class="text-xs sm:text-sm font-bold text-neutral-800 truncate">ummidiavinash05@gmailo.com</p>
+        </div>
+        <span class="text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-sm font-bold">↗</span>
+      </a>
+
+      <!-- Instagram Card -->
+      <a 
+        href="https://instagram.com/phani_avinash_05" 
+        target="_blank"
+        class="group relative flex items-center gap-4 p-4 rounded-2xl bg-white border border-neutral-200/80 shadow-sm hover:border-[#800020]/40 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+      >
+        <div class="w-11 h-11 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center shrink-0 group-hover:bg-gradient-to-tr group-hover:from-amber-500 group-hover:via-rose-500 group-hover:to-purple-600 group-hover:text-white transition-all text-pink-600">
+          <!-- Instagram SVG -->
+          <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">Instagram</p>
+          <p class="text-xs sm:text-sm font-bold text-neutral-800 truncate">@phani_avinash_05</p>
+        </div>
+        <span class="text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-sm font-bold">↗</span>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+    <footer class="mt-8 pt-8 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between text-neutral-500 text-xs gap-4">
+      <p>© 2026 Phani Avinash. All rights reserved.</p>
+      <p>Designed for high-retention video showcases.</p>
+    </footer>
+
+  </main>
+
+<script>
+  // Initialize Lenis Smooth Scroll
+  const lenis = new Lenis({
+    duration: 1.2,        // Scroll speed/duration (higher = smoother glide)
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth exponential curve
+    smoothWheel: true,    // Smooth mouse wheel scrolling
+    touchMultiplier: 2,   // Touch scroll sensitivity
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+
+  document.querySelectorAll('.video-card').forEach(card => {
+    const video = card.querySelector('video');
+    const trigger = card.querySelector('.play-trigger');
+
+    // 1. Initial Start: user clicks the big play button overlay
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      // Pause any other active video first
+      document.querySelectorAll('video').forEach(other => {
+        if (other !== video) other.pause();
+      });
+
+      video.setAttribute('controls', 'true');
+      video.play();
+    });
+
+    // 2. When playback begins: hide overlay so native controls work smoothly
+    video.addEventListener('play', () => {
+      // Safety check: pause any other video that might still be running
+      document.querySelectorAll('video').forEach(other => {
+        if (other !== video) other.pause();
+      });
+
+      video.setAttribute('controls', 'true');
+      trigger.style.display = 'none';
+    });
+
+    // 3. When user hits pause on the native bar: bring back overlay and remove bar
+    video.addEventListener('pause', () => {
+      video.removeAttribute('controls');
+      trigger.style.display = 'flex';
+    });
+
+    // 4. When video finishes: reset completely
+    video.addEventListener('ended', () => {
+      video.removeAttribute('controls');
+      trigger.style.display = 'flex';
+    });
+  });
+
+  const coords = { x: 0, y: 0 };
+const circles = document.querySelectorAll(".circle");
+
+const colors = [
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+  "#fffff",
+];
+
+circles.forEach(function (circle, index) {
+  circle.x = 0;
+  circle.y = 0;
+  circle.style.backgroundColor = colors[index % colors.length];
+});
+
+window.addEventListener("mousemove", function(e){
+  coords.x = e.clientX;
+  coords.y = e.clientY;
+  
+});
+
+function animateCircles() {
+  
+  let x = coords.x;
+  let y = coords.y;
+  
+  circles.forEach(function (circle, index) {
+    circle.style.left = x + 12 + "px";
+    circle.style.top = y + 12 + "px";
+    
+    circle.style.scale = (circles.length - index) / circles.length;
+    
+    circle.x = x;
+    circle.y = y;
+
+    const nextCircle = circles[index + 1] || circles[0];
+    x += (nextCircle.x - x) * 0.3;
+    y += (nextCircle.y - y) * 0.3;
+  });
+ 
+  requestAnimationFrame(animateCircles);
+}
+
+animateCircles();
+
+
+</script>
+</body>
+</html>
